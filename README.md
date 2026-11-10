@@ -1,4 +1,3 @@
-# Index.html-
 
 <!DOCTYPE html>
 <html lang="it">
@@ -8,53 +7,28 @@
 <title>JARVIS AI</title>
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;background:#050b18;color:#d9f6ff;
-font-family:Arial,sans-serif;min-height:100vh;
-display:flex;flex-direction:column;align-items:center
-}
-header{
-width:100%;padding:22px;text-align:center;
-border-bottom:1px solid #123d59;letter-spacing:5px
-}
+body{margin:0;background:#050b18;color:#d9f6ff;font-family:Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+header{width:100%;padding:22px;text-align:center;border-bottom:1px solid #123d59;letter-spacing:5px}
 h1{color:#36d9ff;font-size:29px;margin:0}
 header p{font-size:11px;color:#7698ad;letter-spacing:3px}
-.core{
-margin:35px auto 20px;width:190px;height:190px;
-border:3px solid #19c9ff;border-radius:50%;
-display:flex;align-items:center;justify-content:center;
-box-shadow:0 0 20px #008cff,inset 0 0 25px #008cff;
-animation:pulse 3s infinite
-}
+.core{margin:35px auto 20px;width:190px;height:190px;border:3px solid #19c9ff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px #008cff,inset 0 0 25px #008cff;animation:pulse 3s infinite}
 .core span{font-size:65px;color:#48dcff}
-@keyframes pulse{
-50%{box-shadow:0 0 40px #00aaff,inset 0 0 35px #008cff}
-}
+@keyframes pulse{50%{box-shadow:0 0 40px #00aaff,inset 0 0 35px #008cff}}
 .status{color:#38d9ff;font-size:12px;letter-spacing:3px}
 main{width:92%;max-width:520px}
-#chat{
-height:270px;overflow:auto;background:#091526;
-border:1px solid #17405b;border-radius:12px;
-padding:15px;margin:20px 0
-}
+#chat{height:270px;overflow:auto;background:#091526;border:1px solid #17405b;border-radius:12px;padding:15px;margin:20px 0}
 .msg{padding:10px;margin:8px 0;border-radius:9px;font-size:14px;line-height:1.5}
 .jarvis{background:#102b40;color:#7ee7ff}
 .user{background:#183d35;color:#c6ffe2;text-align:right}
 .controls{display:flex;gap:8px}
-input{
-flex:1;min-width:0;background:#0c1d30;
-border:1px solid #1a6387;border-radius:9px;
-color:white;padding:14px;font-size:15px
-}
-button{
-background:#087ca9;color:white;border:0;
-border-radius:9px;padding:13px;font-weight:bold
-}
+input{flex:1;min-width:0;background:#0c1d30;border:1px solid #1a6387;border-radius:9px;color:white;padding:14px;font-size:15px}
+button{background:#087ca9;color:white;border:0;border-radius:9px;padding:13px;font-weight:bold;cursor:pointer}
 #mic{width:100%;margin-top:12px;padding:16px}
-footer{padding:25px;color:#52758b;font-size:11px}
+footer{padding:25px;color:#52758b;font-size:11px;text-align:center}
 </style>
 </head>
 <body>
+
 <header>
 <h1>J.A.R.V.I.S.</h1>
 <p>JUST A RATHER VERY INTELLIGENT SYSTEM</p>
@@ -69,9 +43,10 @@ footer{padding:25px;color:#52758b;font-size:11px}
 </div>
 
 <div class="controls">
-<input id="message" placeholder="Scrivi a JARVIS...">
+<input id="message" type="text" placeholder="Scrivi a JARVIS...">
 <button onclick="send()">INVIA</button>
 </div>
+
 <button id="mic" onclick="listen()">🎙️ PARLA CON JARVIS</button>
 </main>
 
@@ -102,8 +77,8 @@ speechSynthesis.speak(speech);
 }
 
 function answer(text){
-let t=text.toLowerCase();
-let reply="Ho ricevuto il tuo messaggio. Per risposte intelligenti complete dovremo collegare un servizio AI.";
+const t=text.toLowerCase();
+let reply="Ho ricevuto il tuo messaggio. Sono pronto ad assisterti.";
 
 if(t.includes("ciao")||t.includes("buongiorno"))
 reply="Buongiorno. JARVIS è pronto e a tua disposizione.";
@@ -135,7 +110,7 @@ input.value="";
 answer(text);
 }
 
-document.getElementById("message").addEventListener("keydown",e=>{
+document.getElementById("message").addEventListener("keydown",function(e){
 if(e.key==="Enter")send();
 });
 
@@ -149,19 +124,20 @@ const recognition=new Recognition();
 recognition.lang="it-IT";
 recognition.interimResults=false;
 statusText.textContent="IN ASCOLTO...";
-recognition.onresult=e=>{
+recognition.onresult=function(e){
 const text=e.results[0][0].transcript;
 document.getElementById("message").value=text;
 send();
 };
-recognition.onerror=()=>{
+recognition.onerror=function(){
 statusText.textContent="SISTEMA PRONTO";
 };
-recognition.onend=()=>{
+recognition.onend=function(){
 statusText.textContent="SISTEMA PRONTO";
 };
 recognition.start();
 }
 </script>
+
 </body>
 </html>
